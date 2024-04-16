@@ -1,4 +1,4 @@
-# hello-vue3
+# simple-math-application
 
 ## Project setup
 ```
