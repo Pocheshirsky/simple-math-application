@@ -1,6 +1,7 @@
 <template lang="pug">
 div
-  left-panel
+  left-panel( @computeParameters="computeParameters" )
+
 </template>
 
 <script>
@@ -12,6 +13,12 @@ export default {
     LeftPanel: LeftPanel,
     // PointInputUnit: PointInputUnit
   },
+
+  methods: {
+    computeParameters(pointsArray) {
+      console.log("points", pointsArray)
+    }
+  }
 }
 
 </script>

@@ -3,6 +3,7 @@ div.d-flex.width
     div.mt-6.mr-3.ml-2 {{ "Point " + number }}
     v-text-field( v-model="optic_density" label="Optic density" flat solo )
     v-text-field( v-model="concentration" label="Concentracion" flat solo )
+    v-btn.bg-surface.mt-4.ml-4( @click="childrenPoint" ) Сохранить
 </template>
 
 <script>
@@ -18,14 +19,17 @@ export default {
         number: Number
     },
 
-    mounted() {
-        console.log(this.number)
+    methods: {
+        childrenPoint() {
+            this.$emit('childrenPoint', [parseInt(this.optic_density), parseInt(this.concentration)])
+        }
     }
+
 }
 </script>
 
 <style scoped>
 .width {
-    width: 350px;
+    width: 500px;
 }
 </style>

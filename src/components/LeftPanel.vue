@@ -1,6 +1,6 @@
 <template lang="pug">
 div.bg-surface-variant.style
-  point-input
+  point-input( @computeParameters="computeParameters" )
             
 </template>
 
@@ -23,14 +23,16 @@ export default {
   },
 
   methods: {
-    
+    computeParameters(pointsArray) {
+      this.$emit('computeParameters', pointsArray)
+    }
   },
 };
 </script>
 
 <style>
 .style {
-  width: 350px;
+  width: 500px;
   height: 1080px;
 }
 </style>
