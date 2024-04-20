@@ -1,35 +1,58 @@
 <template lang="pug">
 div.d-flex.width
-    div.mt-6.mr-3.ml-2 {{ "Point " + number }}
-    v-text-field( v-model="optic_density" label="Optic density" flat solo )
-    v-text-field( v-model="concentration" label="Concentracion" flat solo )
-    v-btn.bg-surface.mt-4.ml-4( @click="childrenPoint" ) Сохранить
+  div.mt-5.mr-3.ml-2 {{ "Point " + index }}
+  v-text-field( v-model="optic_density" label="Optic density" flat solo hide-details single-line @input="setValue" @keypress="numberFilter")
+  v-text-field( v-model="concentration" label="Concentracion" flat solo hide-details single-line @input="setValue" )
+  v-btn.bg-surface.mt-4.ml-4.mr-4( @click="deleteMyself" ) -
 </template>
 
 <script>
+import { useLinearApproximationStore } from "@/scripts/store/linearApproximation.module";
+
 export default {
-    data() {
-        return {
-            optic_density: 0,
-            concentration: 0
-        }
+  data() {
+    return {
+      optic_density: 0,
+      concentration: 0,
+    };
+  },
+
+  computed: {
+    store: () => useLinearApproximationStore()
+  },
+
+  props: {
+    index: Number,
+  },
+
+  methods: {
+    deleteMyself() {
+      this.store.deletePointByIndex(this.index)
     },
 
-    props: {
-        number: Number
+    setValue() {
+      let value = [parseFloat(this.optic_density), parseFloat(this.concentration)]
+      this.store.setPointByIndex(this.index, value)
     },
 
-    methods: {
-        childrenPoint() {
-            this.$emit('childrenPoint', [parseInt(this.optic_density), parseInt(this.concentration)])
-        }
+    numberFilter: function(evt) {
+      evt = (evt) ? evt : window.event;
+      let expect = evt.target.value.toString() + evt.key.toString();
+      
+      if (!/^[-+]?[0-9]*\.?[0-9]*$/.test(expect)) {
+        evt.preventDefault();
+      } 
+      else {
+        return true;
+      }
     }
 
-}
+  },
+};
 </script>
 
 <style scoped>
 .width {
-    width: 500px;
+  width: 500px;
 }
 </style>
