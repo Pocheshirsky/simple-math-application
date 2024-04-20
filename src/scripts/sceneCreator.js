@@ -17,7 +17,8 @@ export class SceneCreator {
         const camera = new THREE.PerspectiveCamera( 75, width / height, 0.001, 1000 );
         console.log(document.getElementById('threeCanvas'))
         const renderer = new THREE.WebGLRenderer({
-          canvas: document.getElementById('threeCanvas')
+          canvas: document.getElementById('threeCanvas'),
+          antialias: true
         });
         renderer.setSize( width, height );
   
@@ -62,6 +63,7 @@ export class SceneCreator {
         camera.position.z = 0.05;
         
         const controls = new OrbitControls( camera, renderer.domElement );
+        controls.zoomToCursor = true
         controls.enableRotate = false;
         controls.update();
 

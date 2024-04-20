@@ -17,6 +17,10 @@ export default {
     };
   },
 
+  mounted() {
+    // Создать сущность точки на сцене и привязать ее к данным в store
+  },
+
   computed: {
     store: () => useLinearApproximationStore()
   },
@@ -48,6 +52,10 @@ export default {
     }
 
   },
+
+  beforeUnmount() {
+    // Удалить точку на сцене
+  }
 };
 </script>
 
