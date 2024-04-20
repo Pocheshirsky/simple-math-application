@@ -8,7 +8,7 @@ div
     div( v-for="(item, index) in points" :key="item.id")
       point-input-unit( :index="index" )
             
-  div {{ this.store.pointsArray }}
+  div {{ this.store.points }}
 </template>
 
 <script>
@@ -28,7 +28,7 @@ export default {
     store: () => useLinearApproximationStore(),
 
     points() {
-      return this.store.pointsArray;
+      return this.store.points;
     },
   },
 

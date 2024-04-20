@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useLinearApproximationStore = defineStore("linearApproximation", {
   state: () => {
     return {
-      pointsArray: [ { id: 1, value: [0, 0] } ],
+      points: [ { id: 1, value: [0, 0] } ],
       currentLastId: 1
     };
   },
@@ -17,7 +17,7 @@ export const useLinearApproximationStore = defineStore("linearApproximation", {
      */
     addPoint(point) {
       point.id = this.currentLastId + 1
-      this.pointsArray.push(point)
+      this.points.push(point)
       this.currentLastId++
     },
 
@@ -25,14 +25,14 @@ export const useLinearApproximationStore = defineStore("linearApproximation", {
      * Удаляет последний элемент массива
      */
     deleteLastPoint() {
-      this.pointsArray.pop()
+      this.points.pop()
     },
 
     /**Удаляет элемент из массива по его индексу
      * @param {Number} index
      */
     deletePointByIndex(index) {
-      this.pointsArray.splice(index, 1)
+      this.points.splice(index, 1)
     },
 
     /**Задает значение точки по ее индексу
@@ -41,8 +41,8 @@ export const useLinearApproximationStore = defineStore("linearApproximation", {
      * @param {Array<Number>} value Позиция точки в формате [x, y]
      */
     setPointByIndex(index, value) {
-      let id = this.pointsArray[index].id
-      this.pointsArray[index] = {
+      let id = this.points[index].id
+      this.points[index] = {
         id: id,
         value: value 
       }
