@@ -2,14 +2,13 @@
 div
   div.addPointContainer {{ "Добавить точку" }}
     div.addBtn
-      v-btn.bg-surface(@click="addPoint") {{ "+" }}
+      v-btn.bg-surface( @click="addPoint" ) {{ "+" }}
         
-  div(v-if="pointNumber")
-    div(v-for="index in pointNumber")
-      point-input-unit(:index="index - 1" @childrenPoint="childrenPoint")
+  div( v-if="points" )
+    div( v-for="(item, index) in points" :key="item.id")
+      point-input-unit( :index="index" )
             
   div {{ this.store.pointsArray }}
-    v-btn.bg-surface( @click="computeParameters" ) Посчитать
 </template>
 
 <script>
@@ -21,25 +20,21 @@ export default {
     PointInputUnit: PointInputUnit,
   },
 
+  mounted() {
+    console.log(this)
+  },
+
   computed: {
     store: () => useLinearApproximationStore(),
 
-    pointNumber() {
-      return this.store.pointsArray.length;
+    points() {
+      return this.store.pointsArray;
     },
   },
 
   methods: {
-    childrenPoint(point) {
-      this.pointsArray.push(point);
-    },
-
-    computeParameters() {
-      this.$emit("computeParameters", this.pointsArray);
-    },
-
     addPoint() {
-      this.store.addPoint([0, 0]);
+      this.store.addPoint( { value: [0, 0] } );
     },
   },
 };
