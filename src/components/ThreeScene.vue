@@ -1,51 +1,56 @@
 <template lang="pug">
-div( ref="canvasContainer" )
-  canvas( ref="threeCanvas" )
+div( ref='canvasContainer' )
+  canvas( id='threeCanvas' )
   
 </template>
 
 <script>
-import * as THREE from 'three';
+import { SceneMediator } from '@/scripts/sceneMediator';
+import { useLinearApproximationStore } from "@/scripts/store/linearApproximation.module";
 
 export default {
   
-  mounted() {
-    this.initCanvas();
-    // this.bindEventListeners();
+  watch: {
+    linApproxPoints() {
+      console.log(this.linApproxPoints)
+    }
   },
 
-  methods: {
-    initCanvas() {
-      // Инициализация сцены
-      const leftPanelWidth = document.getElementById("leftPanel").offsetWidth
-      const width = window.innerWidth - leftPanelWidth
-      const height = this.$refs['canvasContainer'].offsetHeight
+  computed: {
+    linApproxStore: () => useLinearApproximationStore(),
 
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera( 75, width / height, 0.001, 1000 );
-
-      const renderer = new THREE.WebGLRenderer({
-        canvas: this.$refs.threeCanvas
-      });
-      renderer.setSize( width, height );
-
-      const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-      const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-      const cube = new THREE.Mesh( geometry, material );
-      scene.add( cube );
-
-      camera.position.z = 5;
-
-      function animate() {
-        requestAnimationFrame( animate );
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        renderer.render( scene, camera );
-      }
-
-      animate();
+    linApproxPoints() {
+      return this.linApproxStore.points;
     },
-  }
+  },
+
+  mounted() {
+    this.linApproxStore.$subscribe((mutation, state) => {
+      mutation
+      console.log(state.points[0].value[0])
+
+      SceneMediator.SceneObjects.createPoint({
+        position: [state.points[0].value[0], state.points[0].value[1]],
+        color: 0x993333
+      })
+    })
+
+    SceneMediator.SceneCreator.initScene(this.$refs['canvasContainer'])
+    SceneMediator.SceneObjects.createPoint({
+      position: [0, 0],
+      color: 0x993333
+    })
+    SceneMediator.SceneObjects.createPoint({
+      position: [0.001, 0.001],
+      color: 0x339933
+    })
+    SceneMediator.SceneObjects.createPoint({
+      position: [0.002, 0.002],
+      color: 0x333399
+    })
+  },
+
+
 }
 
 </script>
