@@ -3,7 +3,7 @@ div.d-flex.width
   div.mt-5.mr-3.ml-2 {{ "Point " + index }}
   v-text-field( v-model="optic_density" label="Optic density" flat solo hide-details single-line @input="setValue" @keypress="numberFilter")
   v-text-field( v-model="concentration" label="Concentracion" flat solo hide-details single-line @input="setValue" @keypress="numberFilter")
-  v-btn.bg-surface.mt-2.ml-4.mr-4( @click="deleteMyself" ) -
+  v-btn.bg-surface.mt-2.ml-4.mr-4( @click="deleteMyself" ) 
 </template>
 
 <script>
@@ -12,8 +12,8 @@ import { useLinearApproximationStore } from "@/scripts/store/linearApproximation
 export default {
   data() {
     return {
-      optic_density: 0,
-      concentration: 0,
+      optic_density: null,
+      concentration: null,
     };
   },
 
