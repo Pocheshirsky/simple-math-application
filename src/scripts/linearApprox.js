@@ -1,4 +1,5 @@
 import { SceneMediator } from "./sceneMediator"
+import { useLinearApproximationStore as store } from "./store/linearApproximation.module"
 
 export class LinearApprox{
 
@@ -32,6 +33,8 @@ export class LinearApprox{
             isInfinity = true
             x = points[0].value[0]
         }
+
+        store().setEquation({a: a, b: b})
 
         return {
             isNan: isNan,

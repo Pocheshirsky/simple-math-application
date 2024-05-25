@@ -7,7 +7,8 @@ export const useLinearApproximationStore = defineStore("linearApproximation", {
     return {
       points: [{ id: 1, value: [0, 0], mesh: null }],
       currentLastId: 1,
-      lineMesh: null
+      lineMesh: null,
+      equation: null
     };
   },
 
@@ -27,6 +28,10 @@ export const useLinearApproximationStore = defineStore("linearApproximation", {
       if (this.points.length == 2 && this.lineMesh == null) {
         this.lineMesh = LinearApprox.createLinearApprox(this.points)
       }
+    },
+
+    setEquation(obj) {
+      this.equation = obj
     },
 
     /**Удаляет элемент из массива по его индексу

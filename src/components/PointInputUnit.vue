@@ -1,9 +1,9 @@
 <template lang="pug">
 div.d-flex.width
   div.mt-5.mr-3.ml-2 {{ "Точка " + index }}
-  v-text-field( v-model="optic_density" label="Оптическая плотность" flat solo hide-details single-line @input="setValue" @keypress="numberFilter")
-  v-text-field( v-model="concentration" label="Концентрация" flat solo hide-details single-line @input="setValue" @keypress="numberFilter")
-  v-btn.bg-surface.mt-2.ml-4.mr-4( @click="deleteMyself" ) 
+  v-text-field( v-model="optic_density" label="Оптическая плотность" flat solo hide-details  @input="setValue" @keypress="numberFilter")
+  v-text-field( v-model="concentration" label="Концентрация" flat solo hide-details  @input="setValue" @keypress="numberFilter")
+  v-btn.bg-surface.mt-2.ml-4.mr-4( @click="deleteMyself" ) - 
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template lang="pug">
 div.bg-surface-variant.style
-  point-input()
+  point-input
             
 </template>
 
