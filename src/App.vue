@@ -2,9 +2,9 @@
 div.main
   left-panel( id="leftPanel" )
   three-scene( id="threeScene" )
-  div.lineEquation.bg-surface-variant
-    span.pl-2 Уравнение прямой: 
-    span.ml-2 {{ stringEquation }}
+  div.lineEquation.bg-surface-variant( v-if="equation != null" )
+    span.pl-2.pt-1 Уравнение прямой: 
+    span.ml-2.mt-1.mr-2 {{ stringEquation }}
 
 </template>
 
@@ -43,7 +43,7 @@ export default {
 }
 
 .lineEquation {
-  width: 400px;
+  width: auto;
   height: 30px;
   display: flex;
   position: absolute;
