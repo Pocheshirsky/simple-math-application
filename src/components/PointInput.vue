@@ -2,7 +2,8 @@
 div
   div.addPointContainer {{ "Добавить точку" }}
     div.addBtn
-      v-btn.bg-surface( @click="addPoint" ) {{ "+" }}
+      v-btn( @click="addPoint" icon  )
+        v-icon(color="green") mdi-plus-thick
         
   div( v-if="points")
     div( v-for="(item, index) in points" :key="item.id")
@@ -42,8 +43,10 @@ export default {
 
 .addPointContainer {
   width: 500px;
+  margin-top: 8px;
   padding: 8px;
   display: flex;
+  font-size: 24px;
 }
 
 .addBtn {
