@@ -10,8 +10,6 @@ import { SceneObjects } from '@/scripts/sceneObjects';
 import { useLinearApproximationStore } from "@/scripts/store/linearApproximation.module";
 
 export default {
-
-
   computed: {
     linApproxStore: () => useLinearApproximationStore(),
 
@@ -19,12 +17,11 @@ export default {
       return this.linApproxStore.points;
     },
   },
+
   mounted() {
     SceneMediator.SceneCreator.initScene(this.$refs['canvasContainer'])
     this.linApproxPoints[0].mesh = SceneObjects.createPoint({ position: [0, 0], color: 0x993333 })
   },
-
-
 }
 
 </script>

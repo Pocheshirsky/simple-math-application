@@ -31,14 +31,14 @@ export class SceneObjects {
     }
 
     static updatePoint(point, position) {
-        this.removePoint(point)
+        this.removeSceneObj(point)
 
         let newPoint = this.createPoint({ position: position, color: 0x993333 })
         return newPoint
     }
 
-    static removePoint(point) {
-        let obj = this.#_scene.getObjectByName(point.uuid)
+    static removeSceneObj(object) {
+        let obj = this.#_scene.getObjectByName(object.uuid)
         this.#_scene.remove( obj );
     }
 
@@ -50,12 +50,27 @@ export class SceneObjects {
     static createLine(cfg = {}) {
         const a = cfg.linearEquation.a
         const b = cfg.linearEquation.b
+        const isNan = cfg.linearEquation.isNan
+        const isInfinity = cfg.linearEquation.isInfinity
+        const x = cfg.linearEquation.x
 
-        const x1 = 0;
-        const x2 = 1;
+        let x1 = 0
+        let x2 = 0
+        let y1 = 0
+        let y2 = 0
 
-        const y1 = a * x1 + b
-        const y2 = a * x2 + b
+        if (isNan || isInfinity) {
+            x1 = x
+            x2 = x
+            y1 = 0
+            y2 = 1
+        }
+        else {
+            x1 = 0
+            x2 = 1
+            y1 = a * x1 + b
+            y2 = a * x2 + b
+        }
 
         const posA = new THREE.Vector2(x1, y1)
         const posB = new THREE.Vector2(x2, y2)
@@ -66,24 +81,15 @@ export class SceneObjects {
         const line = new THREE.Line( lineGeometry, material );
         
         SceneCreator.scene.add( line );
+        line.name = line.uuid
+
+        return line
     }
 
-    static removeObject3D(object3D) {
-        if (!(object3D instanceof THREE.Object3D)) return false;
-    
-        // for better memory management and performance
-        if (object3D.geometry) object3D.geometry.dispose();
-    
-        if (object3D.material) {
-            if (object3D.material instanceof Array) {
-                // for better memory management and performance
-                object3D.material.forEach(material => material.dispose());
-            } else {
-                // for better memory management and performance
-                object3D.material.dispose();
-            }
-        }
-        object3D.removeFromParent(); // the parent might be the scene or another Object3D, but it is sure to be removed this way
-        return true;
+    static updateLine(line, linearEquation) {
+        this.removeSceneObj(line)
+
+        let newLine = this.createLine({ linearEquation: linearEquation })
+        return newLine
     }
 }

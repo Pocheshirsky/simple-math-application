@@ -13,8 +13,8 @@ import { useLinearApproximationStore } from "@/scripts/store/linearApproximation
 export default {
   data() {
     return {
-      optic_density: null,
-      concentration: null,
+      optic_density: 0,
+      concentration: 0,
     };
   },
 
@@ -23,7 +23,7 @@ export default {
   },
 
   computed: {
-    store: () => useLinearApproximationStore()
+    store: () => useLinearApproximationStore(),
   },
 
   props: {

@@ -7,16 +7,11 @@ div
   div( v-if="points")
     div( v-for="(item, index) in points" :key="item.id")
       point-input-unit( :index="index" )
-    
-  div {{ this.store.points }}
-  v-btn( @click="computeAndDrawApproximation" )
 </template>
 
 <script>
 import PointInputUnit from "./PointInputUnit";
 import { useLinearApproximationStore } from "@/scripts/store/linearApproximation.module";
-import { LinearApprox } from "@/scripts/linearApprox";
-// import { SceneObjects } from "@/scripts/sceneObjects";
 
 export default {
   components: {
@@ -39,9 +34,6 @@ export default {
     addPoint() {
       this.store.addPoint({ value: [0, 0], mesh: null });
     },
-    computeAndDrawApproximation() {
-      LinearApprox.createLinearApprox(this.points)
-    }
   },
 };
 </script>
