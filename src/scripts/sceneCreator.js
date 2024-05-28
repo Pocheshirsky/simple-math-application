@@ -3,9 +3,13 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 export class SceneCreator {
   static #_scene = null;
-  static #_controls = null
-  static #_renderer = null
-  static #_camera =null
+  // static #_controls = null
+  // static #_renderer = null
+  static #_camera = null
+
+  static #_lastZ = 0
+
+  static #_onMouseWheelListener = null
 
   static get scene() {
     return this.#_scene;
@@ -34,7 +38,41 @@ export class SceneCreator {
     // Создание белого фона
     scene.background = new THREE.Color(0xffffff);
 
-    
+    // Подписи осей координат
+
+    // Стартовая позиция камеры
+    camera.position.z = 2;
+    this.#_lastZ = 2
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.zoomToCursor = true;
+    controls.enableRotate = false;
+    controls.update();
+
+    // this.#_controls = controls;
+    // this.#_renderer = renderer;
+    this.#_camera = camera;
+
+    // Основной цикл анимации
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    this.onZoom()
+
+    this.#_scene = scene;
+    this.createGrids()
+  }
+
+  static isNearZero(n) {
+    return n <= 0.001 && n >= -0.001
+  }
+
+  static createGrids() {
 
     // Создание серой сетки
     const grayGridMaterial = new THREE.LineBasicMaterial({ color: 0xcccccc });
@@ -56,10 +94,9 @@ export class SceneCreator {
       new THREE.Float32BufferAttribute(grayGridVertices, 3)
     );
     const grayGrid = new THREE.LineSegments(grayGridGeometry, grayGridMaterial);
-    scene.add(grayGrid);
-
+    grayGrid.name = grayGrid.uuid
+    this.#_scene.add(grayGrid);
     
-
     // Создание оранжевой сетки с клетками большего размера
     const orangeGridMaterial = new THREE.LineBasicMaterial({ color: 0xffa500 });
     const orangeGridGeometry = new THREE.BufferGeometry();
@@ -79,11 +116,9 @@ export class SceneCreator {
       "position",
       new THREE.Float32BufferAttribute(orangeGridVertices, 3)
     );
-    const orangeGrid = new THREE.LineSegments(
-      orangeGridGeometry,
-      orangeGridMaterial
-    );
-    scene.add(orangeGrid);
+    const orangeGrid = new THREE.LineSegments( orangeGridGeometry, orangeGridMaterial );
+    orangeGrid.name = orangeGrid.uuid
+    this.#_scene.add(orangeGrid);
 
     // Создание черных осей координат
     const blackAxisMaterial = new THREE.LineBasicMaterial({ color: 0x707070 });
@@ -101,44 +136,39 @@ export class SceneCreator {
     );
 
     const blackAxis = new THREE.LineSegments(blackAxisGeometry, blackAxisMaterial);
-    scene.add(blackAxis);
-
-    // Подписи осей координат
-
-    // Стартовая позиция камеры
-    camera.position.z = 2;
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.zoomToCursor = true;
-    controls.enableRotate = false;
-    controls.update();
-
-    this.#_controls = controls;
-    this.#_renderer = renderer;
-    this.#_camera = camera;
-
-    // Основной цикл анимации
-    function animate() {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
-    }
-
-    animate();
-
-    this.#_scene = scene;
+    blackAxis.name = blackAxis.uuid
+    this.#_scene.add(blackAxis);
   }
 
-  static isNearZero(n) {
-    return n <= 0.001 && n >= -0.001
+  static onZoom() {
+    document.addEventListener("wheel", this.#_onMouseWheelListener = (wheel) => {
+      let z = this.#_camera.position.z
+      console.log(z)
+      if (this.#_lastZ == z) return
+      this.#_lastZ = z
+
+      // console.log(z)
+      // console.log(wheel)
+
+      // Вперед -deltaY
+      // Назад +deltaY
+
+      // let wheelCount = 0
+      // if (wheel.deltaY < 0) { wheelCount-- }
+      // else {  wheelCount++ }
+      
+      // if (wheelCount == 4) {
+      //   // Перерисуй сцену с увеличенным масштабом
+      //   wheelCount = 0
+      // }
+      // if (wheelCount == -4) {
+      //   // Перерисуй сцену с уменьшенным масштабом
+      //   wheelCount = 0
+      // }
+    })
   }
 
-  // static animateMe() {
-  //   function animate() {
-  //     requestAnimationFrame(animate);
-  //     this.#_controls.update();
-  //     this.#_renderer.render(this.#_scene, this.#_camera);
-  //   }
-  //   return animate()
-  // }
+  static offZoom() {
+    document.removeEventListener("wheel", this.#_onMouseWheelListener)
+  }
 }

@@ -15,6 +15,7 @@ import PointInputUnit from "./PointInputUnit";
 import { useLinearApproximationStore } from "@/scripts/store/linearApproximation.module";
 
 export default {
+
   components: {
     PointInputUnit: PointInputUnit,
   },
