@@ -28,7 +28,7 @@ export default {
     },
 
     stringEquation() {
-      if (this.equation != null) return `y = ${this.equation.a > 0 ? "" : "- "} ${Math.abs(parseFloat(this.equation.a).toFixed(3))} * x ${this.equation.b > 0 ? "+ " : "- "} ${Math.abs(parseFloat(this.equation.b).toFixed(3))}`
+      if (this.equation != null) return `y = ${this.equation.a > 0 ? "" : "- "} ${Math.abs(parseFloat(this.equation.a).toFixed(3))} * x ${this.equation.b > 0 ? "+ " : "- "} ${Math.abs(parseFloat(this.equation.b).toFixed(6))}`
       else return ''
     }
   },

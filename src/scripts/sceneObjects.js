@@ -63,11 +63,11 @@ export class SceneObjects {
             x1 = x
             x2 = x
             y1 = 0
-            y2 = 1
+            y2 = 10
         }
         else {
             x1 = 0
-            x2 = 1
+            x2 = 10
             y1 = a * x1 + b
             y2 = a * x2 + b
         }

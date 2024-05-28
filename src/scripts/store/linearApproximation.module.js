@@ -21,7 +21,7 @@ export const useLinearApproximationStore = defineStore("linearApproximation", {
      * @param {Number} point.id Идентификатор точки в массиве. Если не указан, создает id на 1 больше последнего
      */
     addPoint(point) {
-      point.id = this.currentLastId + 1
+      point.id = this.currentLastId + 1;
       point.mesh = SceneObjects.createPoint({ position: [0, 0], color: 0x993333 })
       this.points.push(point)
       this.currentLastId++
@@ -45,6 +45,7 @@ export const useLinearApproximationStore = defineStore("linearApproximation", {
       if (this.points.length < 2 && this.lineMesh != null) {
         SceneObjects.removeSceneObj(this.lineMesh)
         this.lineMesh = null
+        this.equation = null
       }
       else if (this.lineMesh != null) {
         this.lineMesh = LinearApprox.updateLinearApprox(this.points, this.lineMesh)

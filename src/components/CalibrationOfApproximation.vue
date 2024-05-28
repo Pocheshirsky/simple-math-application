@@ -1,7 +1,7 @@
 <template lang="pug">
 div.ml-2
   div(v-if="equation && canDraw")
-    div.headerStyle Калибровка уравнения
+    div.headerStyle Калибровочный график
 
     div.calibration
       div
@@ -98,5 +98,6 @@ export default {
 
 .headerStyle {
   font-size: 22px !important;
+  margin-bottom:16px ;
 }
 </style>

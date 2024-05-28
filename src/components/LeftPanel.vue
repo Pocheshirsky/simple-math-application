@@ -1,6 +1,6 @@
 <template lang="pug">
 div.bg-surface-variant.style 
-  div.approxHeaderStyle.ml-2.mt-2 Линейная аппроксимация
+  div.approxHeaderStyle.ml-2.mt-2 Определение концентрации по калибровочному графику
   point-input.mb-4
   calibration-of-approximation
 </template>
