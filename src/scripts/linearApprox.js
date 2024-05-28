@@ -3,7 +3,7 @@ import { useLinearApproximationStore as store } from "./store/linearApproximatio
 
 export class LinearApprox{
 
-    static NORMALIZATION_VALUE = 100
+    static NORMALIZATION_VALUE = 1
 
     static #_computeLinearApprox(points){
         let sumOfProductsXY = 0
