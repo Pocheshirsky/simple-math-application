@@ -5,6 +5,7 @@ import { LinearApprox } from "../linearApprox";
 export const useLinearApproximationStore = defineStore("linearApproximation", {
   state: () => {
     return {
+      groups: [{}, {}, {}],
       points: [{ id: 1, value: [0, 0], mesh: null }],
       currentLastId: 1,
       lineMesh: null,

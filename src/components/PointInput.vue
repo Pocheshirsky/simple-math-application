@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  div.addPointContainer {{ "Добавить точку" }}
+  div.addPointContainer Добавить точку
     div.addBtn
       v-btn( @click="addPoint" icon  )
         v-icon(color="green") mdi-plus-thick
@@ -20,7 +20,7 @@ export default {
   },
 
   mounted() {
-    console.log(this)
+    // console.log(this)
   },
 
   computed: {
@@ -46,7 +46,7 @@ export default {
   margin-top: 8px;
   padding: 8px;
   display: flex;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .addBtn {
